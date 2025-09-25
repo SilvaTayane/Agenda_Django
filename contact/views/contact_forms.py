@@ -1,5 +1,6 @@
 from contact.forms import ContactForm
-from django.shortcuts import render
+from django.urls import reverse
+from django.shortcuts import render, redirect
 
 
 # Create your views here.
@@ -7,10 +8,18 @@ from django.shortcuts import render
 
 
 def create(request):
+    form_action = reverse('contact:create')
+
     if request.method == 'POST':
+        form = ContactForm(request.POST)
+
         context = {
-        'form': ContactForm(request.POST)
-        }
+            'form': form
+            }
+        
+        if form.is_valid():
+            form.save()
+            return redirect('contact:create')
 
         return render(
         request,
