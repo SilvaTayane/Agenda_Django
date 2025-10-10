@@ -7,8 +7,6 @@ from contact.models import Contact
 
 # Create your views here.
 
-
-
 def create(request):
     form_action = reverse('contact:create')
 
